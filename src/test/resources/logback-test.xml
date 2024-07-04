@@ -1,0 +1,25 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%.8thread] %logger{52} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!--        <logger name="org.hibernate.SQL" level="DEBUG" />-->
+<!--        <logger name="org.hibernate.type" level="TRACE" />-->
+<!--    <logger name="org.hibernate.transaction" level="TRACE"/>-->
+    <!--<logger name="org.hibernate.stat" level="INFO" />-->
+    <!--<logger name="org.hibernate.jdbc" level="INFO" />-->
+<!--    <logger name="org.springframework.transactions" level="TRACE" />-->
+<!--    <logger name="org.springframework.transactions.interceptor" level="TRACE" />-->
+<!--    <logger name="org.springframework.orm.jpa" level="DEBUG" />-->
+<!--    <logger name="org.springframework.jdbc" level="TRACE" />-->
+    <!--<logger name="org.springframework.data.jpa" level="TRACE" />-->
+    <!--<logger name="org.springframework.data.auditing" level="TRACE" />-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -2,6 +2,7 @@ package com.dradest.backend.product.jpa.repositories;
 
 import com.dradest.backend.product.jpa.model.Product;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,11 @@ public class ProductJpaRepositoryTest {
     @Autowired
     private ProductJpaRepository productJpaRepository;
 
+    @AfterEach
+    public void clearData() {
+        productJpaRepository.deleteAll();
+    }
+
     @Test
     public void testFindByName() {
         LOGGER.debug("----- testFindByName -----");
@@ -42,5 +48,29 @@ public class ProductJpaRepositoryTest {
         assertNotNull(product);
         assertNotNull(product.getName());
         assertEquals(name, product.getName());
+    }
+
+    @Test
+    public void testDeleteByName() {
+        int noInserts = 5;
+        for (int insert = 0; insert < noInserts; insert++) {
+            Product product = new Product();
+            String name = "Test product " + insert;
+            product.setName(name);
+            product.setDescription(name + " desc");
+            product.setPrice(BigDecimal.TEN);
+
+            productJpaRepository.save(product);
+        }
+
+        long count = productJpaRepository.count();
+        assertEquals(noInserts, count);
+
+        String deleteByName = "Test product 3";
+        int deletedProducts = productJpaRepository.deleteByName(deleteByName);
+        assertEquals(1, deletedProducts);
+
+        count = productJpaRepository.count();
+        assertEquals(noInserts - 1, count);
     }
 }

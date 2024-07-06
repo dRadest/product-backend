@@ -13,3 +13,26 @@ Hibernate: create table product_schema.product (price numeric(14,2) not null, id
 # run
 ./mvnw clean spring-boot:run
 mvn clean spring-boot:run
+
+# curl
+
+
+```shell
+curl -v localhost:8080/products
+
+# existing
+curl -v localhost:8080/products/Shirt
+
+# non-existing
+curl -v localhost:8080/products/Banana
+
+curl -X POST localhost:8080/products -H 'Content-type:application/json' -d '{"name": "Kiwi", "description": "Kiwi product description", "price": "12.58"}'
+
+curl -X PUT localhost:8080/products -H 'Content-type:application/json' -d '{"name": "Toothbrush", "description": "Updated toothbrush description", "price": "77.25"}'
+
+curl -X DELETE localhost:8080/products/Toothbrush
+
+
+
+
+```

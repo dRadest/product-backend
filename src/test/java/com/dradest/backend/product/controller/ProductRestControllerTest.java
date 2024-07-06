@@ -1,5 +1,6 @@
 package com.dradest.backend.product.controller;
 
+import com.dradest.backend.product.config.ProductTestConfiguration;
 import com.dradest.backend.product.jpa.model.Product;
 import com.dradest.backend.product.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -15,12 +17,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Import(ProductTestConfiguration.class)
 @WebMvcTest(ProductRestController.class)
 public class ProductRestControllerTest {
 
@@ -43,14 +47,18 @@ public class ProductRestControllerTest {
     @Test
     public void getProductsShouldReturnListOfProducts() throws Exception {
         when(productService.fetchAllProducts()).thenReturn(productList);
-        this.mockMvc.perform(get("/products"))
+        String mvcResult = this.mockMvc.perform(get("/products"))
                 //.andDo(print())
                 .andExpectAll(
                         status().isOk(),
-                        content().contentType("application/json"),
-                        jsonPath("$", hasSize(1)),
-                        jsonPath("$[0].name", is("productOne"))
-                );
+                        content().contentType("application/hal+json"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertNotNull(mvcResult);
+        String expectedResult = "{\"_embedded\":{\"productList\":[{\"id\":null,\"name\":\"productOne\",\"description\":\"productOne description\",\"price\":1,\"_links\":{\"self\":{\"href\":\"http://localhost/products/productOne\"},\"products\":{\"href\":\"http://localhost/products\"}}}]},\"_links\":{\"self\":{\"href\":\"http://localhost/products\"}}}";
+        assertEquals(expectedResult, mvcResult);
     }
 
     @Test
@@ -60,7 +68,7 @@ public class ProductRestControllerTest {
                 //.andDo(print())
                 .andExpectAll(
                         status().isOk(),
-                        content().contentType("application/json"),
+                        content().contentType("application/hal+json"),
                         jsonPath("$.name", is("productOne"))
                 );
     }
@@ -72,10 +80,14 @@ public class ProductRestControllerTest {
         postProduct.setDescription("post product description");
         postProduct.setPrice(BigDecimal.ONE);
         when(productService.persistProduct(postProduct)).thenReturn(postProduct);
-        this.mockMvc.perform(post("/products").contentType(MediaType.APPLICATION_JSON).content(writeValueAsString(postProduct)))
+        this.mockMvc.perform(
+                post("/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(writeValueAsString(postProduct))
+                )
                 //.andDo(print())
                 .andExpectAll(
-                        status().isOk()
+                        status().is2xxSuccessful() // returns status 201: resource successfully created
                 );
     }
 
@@ -90,10 +102,14 @@ public class ProductRestControllerTest {
         putProduct.setDescription("put product description");
         putProduct.setPrice(BigDecimal.ONE);
         when(productService.updateProduct(putProduct)).thenReturn(putProduct);
-        this.mockMvc.perform(put("/products").contentType(MediaType.APPLICATION_JSON).content(writeValueAsString(putProduct)))
+        this.mockMvc.perform(
+                put("/products")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(writeValueAsString(putProduct))
+                )
                 //.andDo(print())
                 .andExpectAll(
-                        status().isOk()
+                        status().is2xxSuccessful()
                 );
     }
 
@@ -102,7 +118,7 @@ public class ProductRestControllerTest {
         this.mockMvc.perform(delete("/products/deleteProduct"))
                 //.andDo(print())
                 .andExpectAll(
-                        status().isOk()
+                        status().is2xxSuccessful() // returns 204: no content success status
                 );
     }
 }

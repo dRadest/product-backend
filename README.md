@@ -31,8 +31,8 @@ curl -X POST localhost:8080/products -H 'Content-type:application/json' -d '{"na
 curl -X PUT localhost:8080/products -H 'Content-type:application/json' -d '{"name": "Toothbrush", "description": "Updated toothbrush description", "price": "77.25"}'
 
 curl -X DELETE localhost:8080/products/Toothbrush
-
-
-
-
 ```
+
+
+Clients that do not speak HAL can ignore the extra bits while consuming the pure data. Clients that do speak HAL can navigate your empowered API
+

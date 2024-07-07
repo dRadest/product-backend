@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="drad">
+        <createTable tableName="product">
+            <column name="id" type="java.sql.Types.BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="java.sql.Types.VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="java.sql.Types.VARCHAR(255)">
+            </column>
+            <column name="price" type="java.sql.Types.NUMERIC(14,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="drad">
+        <insert tableName="product">
+            <column name="name" value="Toothbrush" />
+            <column name="description" value="Toothbrush that gently cleans your teeth" />
+            <column name="price" value="59.95" />
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Shoes" />
+            <column name="description" value="Shoes made for use in extreme conditions" />
+            <column name="price" value="147.78" />
+        </insert>
+        <insert tableName="product">
+            <column name="name" value="Shirt" />
+            <column name="description" value="One size fits all shirt" />
+            <column name="price" value="24.69" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

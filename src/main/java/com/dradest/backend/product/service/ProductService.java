@@ -1,5 +1,6 @@
 package com.dradest.backend.product.service;
 
+import com.dradest.backend.product.exceptions.ProductDataIncompleteException;
 import com.dradest.backend.product.exceptions.ProductNotFoundException;
 import com.dradest.backend.product.exceptions.ProductPersistException;
 import com.dradest.backend.product.jpa.model.Product;
@@ -28,7 +29,9 @@ public class ProductService {
     }
 
     public Product fetchProductByName(String name) {
-        Objects.requireNonNull(name);
+        if (name == null) {
+            throw new ProductDataIncompleteException("product name NULL");
+        }
         Product result;
         Optional<Product> optProduct = productJpaRepository.findByName(name);
         if (optProduct.isPresent()) {
@@ -41,9 +44,13 @@ public class ProductService {
     }
 
     public Product updateProduct(Product product) {
-        Objects.requireNonNull(product);
+        if (product == null) {
+            throw new ProductDataIncompleteException("product NULL");
+        }
         String productName = product.getName();
-        Objects.requireNonNull(productName);
+        if (productName == null) {
+            throw new ProductDataIncompleteException("product name NULL");
+        }
 
         Product result;
 
@@ -61,9 +68,13 @@ public class ProductService {
     }
 
     public Product persistProduct(Product product) {
-        Objects.requireNonNull(product);
+        if (product == null) {
+            throw new ProductDataIncompleteException("product NULL");
+        }
         String productName = product.getName();
-        Objects.requireNonNull(productName);
+        if (productName == null) {
+            throw new ProductDataIncompleteException("product name NULL");
+        }
 
         Product result;
         Optional<Product> optProduct = productJpaRepository.findByName(productName);

@@ -1,5 +1,6 @@
 package com.dradest.backend.product.service;
 
+import com.dradest.backend.product.exceptions.ProductDataIncompleteException;
 import com.dradest.backend.product.exceptions.ProductNotFoundException;
 import com.dradest.backend.product.exceptions.ProductPersistException;
 import com.dradest.backend.product.jpa.model.Product;
@@ -32,13 +33,13 @@ public class ProductServiceTest {
         assertNotNull(productByName);
 
         assertThrows(ProductNotFoundException.class, () -> productService.fetchProductByName("Banana"));
-        assertThrows(NullPointerException.class, () -> productService.fetchProductByName(null));
+        assertThrows(ProductDataIncompleteException.class, () -> productService.fetchProductByName(null));
     }
 
     @Test
     public void testPersistProduct() {
-        assertThrows(NullPointerException.class, () -> productService.updateProduct(null));
-        assertThrows(NullPointerException.class, () -> productService.updateProduct(new Product()));
+        assertThrows(ProductDataIncompleteException.class, () -> productService.updateProduct(null));
+        assertThrows(ProductDataIncompleteException.class, () -> productService.updateProduct(new Product()));
 
         Product productOrange = new Product();
         productOrange.setName("Orange");
@@ -59,8 +60,8 @@ public class ProductServiceTest {
 
     @Test
     public void testUpdateProduct() {
-        assertThrows(NullPointerException.class, () -> productService.updateProduct(null));
-        assertThrows(NullPointerException.class, () -> productService.updateProduct(new Product()));
+        assertThrows(ProductDataIncompleteException.class, () -> productService.updateProduct(null));
+        assertThrows(ProductDataIncompleteException.class, () -> productService.updateProduct(new Product()));
 
         String productName = "Toothbrush";
         Product productByName = productService.fetchProductByName(productName);

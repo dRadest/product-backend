@@ -19,13 +19,17 @@ Alternatively, run postgres in a docker container
 ```shell
 docker run --name pg1 -p 5432:5432 -e POSTGRES_USER=product_owner -e POSTGRES_PASSWORD=product_owner -e POSTGRES_DB=product_db -d postgres:16.3
 ```
-Required table and dummy data is inserted using liquibase when application runs.
+Required table is created and dummy data inserted using liquibase when application runs.
 
 # RUN
 Run the application in any of the following ways
 ```shell
 ./mvnw clean spring-boot:run
+# or
 mvn clean spring-boot:run
+# or build and run with java
+mvn clean package
+java -jar target/product-backend-0.0.1-SNAPSHOT.jar
 ```
 
 # TEST

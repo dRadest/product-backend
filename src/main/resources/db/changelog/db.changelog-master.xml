@@ -14,9 +14,7 @@
             </column>
             <column name="description" type="java.sql.Types.VARCHAR(255)">
             </column>
-            <column name="price" type="java.sql.Types.NUMERIC(14,2)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="price" type="java.sql.Types.NUMERIC(14,2)"/>
         </createTable>
     </changeSet>
 

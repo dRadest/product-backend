@@ -41,7 +41,7 @@ public class Product {
         this.description = description;
     }
 
-    @Column(name = "price", nullable = false, scale = 2, precision = 14)
+    @Column(name = "price", scale = 2, precision = 14)
     public BigDecimal getPrice() {
         return price;
     }

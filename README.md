@@ -1,15 +1,15 @@
-Spring Boot CRUD application with RESTful APIs that uses PostgresSQL and Liquibase for database migration
+Spring Boot CRUD application with RESTful APIs that uses PostgreSQL and Liquibase for database migration
 
 # ENVIRONMENT
 OS: Ubuntu 22.04.4 LTS\
 Java: 17.0.11\
 Maven: 3.8.5\
-PostgresSQL: 16.3
+PostgreSQL: 16.3
 
 # SETUP
 
 ### Database
-If running PostgresSQL locally create user and database
+If running PostgreSQL locally create user and database
 ```shell
 sudo -u postgres psql
 CREATE USER product_owner WITH PASSWORD 'product_owner';

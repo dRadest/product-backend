@@ -10,7 +10,6 @@ updates:
     schedule:
       interval: "daily"
     ignore:
-      - dependency-name: "jakarta.xml.bind:jakarta.xml.bind-api"
+      - dependency-name: "org.apache.logging.log4j:log4j-core"
         versions:
-          - "rc"
-          - "[4.0.0,)"
+          - "beta"

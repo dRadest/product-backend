@@ -12,4 +12,4 @@ updates:
     ignore:
       - dependency-name: "org.apache.logging.log4j:log4j-core"
         update-types:
-          - "version-update:semver-pre-release"
+          - "version-update:semver-patch"

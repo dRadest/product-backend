@@ -11,5 +11,5 @@ updates:
       interval: "daily"
     ignore:
       - dependency-name: "org.apache.logging.log4j:log4j-core"
-        versions:
-          - "/*-beta$/"
+        update-types:
+          - "version-update:semver-pre-release"

@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: "weekly"
     ignore:
       - dependency-name: "org.apache.logging.log4j:log4j-core"
         update-types:

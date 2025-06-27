@@ -10,6 +10,7 @@ updates:
     schedule:
       interval: "weekly"
     ignore:
-      - dependency-name: "org.apache.logging.log4j:log4j-core"
+      - dependency-name: "io.github.thoughtspot:rest-api-sdk-lib"
         versions:
           - "x.x.x-beta"
+          - "[2.14.0, )"
